@@ -1,17 +1,25 @@
 package com.justin.RPGMonsterCatalogServer.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.List;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Monster {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
     private String description;
+    private Family family;
 
     private Integer hp;
     private Integer sp;
@@ -23,20 +31,19 @@ public class Monster {
     private Integer agility;
     private Integer luck;
 
-    private String[] weaknesses;
-
     private Monster preEvolution;
     private List<Monster> Evolutions;
 
     private List<Skill> skills;
 
-    public Monster(Long id, String name, String description, Integer hp, Integer sp,
+    public Monster(Long id, String name, String description, Family family, Integer hp, Integer sp,
                    Integer atk, Integer def, Integer strength, Integer dexterity,
-                   Integer intelligence, Integer agility, Integer luck, String[] weaknesses,
+                   Integer intelligence, Integer agility, Integer luck,
                    Monster preEvolution, List<Monster> evolutions, List<Skill> skills) {
         this.id = id;
         this.name = name;
         this.description = description;
+        this.family = family;
         this.hp = hp;
         this.sp = sp;
         this.atk = atk;
@@ -46,7 +53,6 @@ public class Monster {
         this.intelligence = intelligence;
         this.agility = agility;
         this.luck = luck;
-        this.weaknesses = weaknesses;
         this.preEvolution = preEvolution;
         Evolutions = evolutions;
         this.skills = skills;
@@ -74,6 +80,14 @@ public class Monster {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Family getFamily() {
+        return family;
+    }
+
+    public void setFamily(Family family) {
+        this.family = family;
     }
 
     public Integer getHp() {
@@ -146,14 +160,6 @@ public class Monster {
 
     public void setLuck(Integer luck) {
         this.luck = luck;
-    }
-
-    public String[] getWeaknesses() {
-        return weaknesses;
-    }
-
-    public void setWeaknesses(String[] weaknesses) {
-        this.weaknesses = weaknesses;
     }
 
     public Monster getPreEvolution() {
