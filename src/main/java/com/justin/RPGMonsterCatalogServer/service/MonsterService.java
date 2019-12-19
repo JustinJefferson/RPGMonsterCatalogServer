@@ -2,6 +2,7 @@ package com.justin.RPGMonsterCatalogServer.service;
 
 import com.justin.RPGMonsterCatalogServer.model.Monster;
 import com.justin.RPGMonsterCatalogServer.repository.MonsterRepository;
+import com.justin.RPGMonsterCatalogServer.utils.MonsterBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,12 +22,8 @@ public class MonsterService {
     }
 
 
-    public ResponseEntity<List<Monster>> readAll() {
-        List<Monster> list = repository.findAll();
-        if(list != null) return new ResponseEntity<>(list, HttpStatus.FOUND);
-        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-
-
+    public List<Monster> readAll() {
+        return repository.findAll();
     }
 
 
@@ -34,12 +31,13 @@ public class MonsterService {
         return repository.findById(id).get();
     }
 
-    public ResponseEntity<Monster> create(Monster monster) {
-        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+    public Monster create(Monster monster) {
+        return repository.save(monster);
     }
 
-    public ResponseEntity<Monster> update(Long id, Monster monster) {
-        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+    public Monster update(Long id, Monster monster) {
+        Monster original = readById(id);
+        return repository.save(new MonsterBuilder(original).update(monster).build());
     }
 
     public Boolean delete(Long id) {

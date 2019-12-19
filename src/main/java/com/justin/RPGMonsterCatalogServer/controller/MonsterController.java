@@ -24,7 +24,9 @@ public class MonsterController {
 
     @GetMapping
     public ResponseEntity<List<Monster>> getAll(){
-        return service.readAll();
+        List<Monster> list = service.readAll();
+        if(list != null && !list.isEmpty()) return new ResponseEntity<>(list, HttpStatus.FOUND);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}")
@@ -36,12 +38,16 @@ public class MonsterController {
 
     @PostMapping
     public ResponseEntity<Monster> post(@RequestBody Monster monster){
-        return service.create(monster);
+        Monster created = service.create(monster);
+        if(created != null) return new ResponseEntity<>(created, HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Monster> put(@PathVariable Long id, @RequestBody Monster monster){
-        return service.update(id, monster);
+        Monster updated = service.update(id, monster);
+        if(updated != null) return new ResponseEntity<>(updated, HttpStatus.ACCEPTED);
+        return ResponseEntity.badRequest().build();
     }
 
     @DeleteMapping("/id")

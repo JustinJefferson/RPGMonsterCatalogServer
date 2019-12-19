@@ -32,7 +32,7 @@ public class Monster {
     private Integer luck;
 
     private Monster preEvolution;
-    private List<Monster> Evolutions;
+    private List<Monster> evolutions;
 
     private List<Skill> skills;
 
@@ -54,7 +54,7 @@ public class Monster {
         this.agility = agility;
         this.luck = luck;
         this.preEvolution = preEvolution;
-        Evolutions = evolutions;
+        this.evolutions = evolutions;
         this.skills = skills;
     }
 
@@ -171,11 +171,11 @@ public class Monster {
     }
 
     public List<Monster> getEvolutions() {
-        return Evolutions;
+        return evolutions;
     }
 
     public void setEvolutions(List<Monster> evolutions) {
-        Evolutions = evolutions;
+        this.evolutions = evolutions;
     }
 
     public List<Skill> getSkills() {
