@@ -26,6 +26,10 @@ public class MonsterService {
         return repository.findAll();
     }
 
+    public List<Monster> readAllByFamilyId(Long familyId) {
+        return repository.findAllByFamilyId(familyId);
+    }
+
 
     public Monster readById(Long id) {
         return repository.findById(id).get();
@@ -37,7 +41,7 @@ public class MonsterService {
 
     public Monster update(Long id, Monster monster) {
         Monster original = readById(id);
-        return repository.save(new MonsterBuilder(original).update(monster).build());
+        return repository.save(new MonsterBuilder(original).replicate(monster).build());
     }
 
     public Boolean delete(Long id) {
