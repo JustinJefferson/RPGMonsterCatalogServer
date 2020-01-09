@@ -3,11 +3,9 @@ package com.justin.RPGMonsterCatalogServer.model;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
@@ -15,11 +13,11 @@ public class Monster {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long monsterId;
 
-    private String name;
+    private String monsterName;
     private String description;
-    private Family family;
+    private Long familyId;
 
     private Integer hp;
     private Integer sp;
@@ -31,19 +29,26 @@ public class Monster {
     private Integer agility;
     private Integer luck;
 
-    private Monster preEvolution;
-    private List<Monster> Evolutions;
+    private Long preEvolutionId;
 
-    private List<Skill> skills;
+    @ManyToMany
+    @JoinTable(
+            name = "monster_skill",
+            joinColumns = @JoinColumn(name = "monsterId"),
+            inverseJoinColumns = @JoinColumn(name = "skillId")
+    )
+    private Set<Skill> skills;
 
-    public Monster(Long id, String name, String description, Family family, Integer hp, Integer sp,
+    public Monster(){}
+
+    public Monster(Long monsterId, String monsterName, String description, Long familyId, Integer hp, Integer sp,
                    Integer atk, Integer def, Integer strength, Integer dexterity,
                    Integer intelligence, Integer agility, Integer luck,
-                   Monster preEvolution, List<Monster> evolutions, List<Skill> skills) {
-        this.id = id;
-        this.name = name;
+                   Long preEvolutionId, Set<Skill> skills) {
+        this.monsterId = monsterId;
+        this.monsterName = monsterName;
         this.description = description;
-        this.family = family;
+        this.familyId = familyId;
         this.hp = hp;
         this.sp = sp;
         this.atk = atk;
@@ -53,25 +58,24 @@ public class Monster {
         this.intelligence = intelligence;
         this.agility = agility;
         this.luck = luck;
-        this.preEvolution = preEvolution;
-        Evolutions = evolutions;
+        this.preEvolutionId = preEvolutionId;
         this.skills = skills;
     }
 
-    public Long getId() {
-        return id;
+    public Long getMonsterId() {
+        return monsterId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setMonsterId(Long monsterId) {
+        this.monsterId = monsterId;
     }
 
-    public String getName() {
-        return name;
+    public String getMonsterName() {
+        return monsterName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setMonsterName(String monsterName) {
+        this.monsterName = monsterName;
     }
 
     public String getDescription() {
@@ -82,12 +86,12 @@ public class Monster {
         this.description = description;
     }
 
-    public Family getFamily() {
-        return family;
+    public Long getFamilyId() {
+        return familyId;
     }
 
-    public void setFamily(Family family) {
-        this.family = family;
+    public void setFamilyId(Long familyId) {
+        this.familyId = familyId;
     }
 
     public Integer getHp() {
@@ -162,27 +166,19 @@ public class Monster {
         this.luck = luck;
     }
 
-    public Monster getPreEvolution() {
-        return preEvolution;
+    public Long getPreEvolutionId() {
+        return preEvolutionId;
     }
 
-    public void setPreEvolution(Monster preEvolution) {
-        this.preEvolution = preEvolution;
+    public void setPreEvolutionId(Long preEvolutionId) {
+        this.preEvolutionId = preEvolutionId;
     }
 
-    public List<Monster> getEvolutions() {
-        return Evolutions;
-    }
-
-    public void setEvolutions(List<Monster> evolutions) {
-        Evolutions = evolutions;
-    }
-
-    public List<Skill> getSkills() {
+    public Set<Skill> getSkills() {
         return skills;
     }
 
-    public void setSkills(List<Skill> skills) {
+    public void setSkills(Set<Skill> skills) {
         this.skills = skills;
     }
 }
