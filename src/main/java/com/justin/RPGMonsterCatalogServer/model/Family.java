@@ -46,4 +46,10 @@ public class Family {
     public void setEffectivenesses(List<ElementEffectiveness> effectivenesses) {
         this.effectivenesses = effectivenesses;
     }
+
+    public Family update(Family family) {
+        this.familyId = family.familyId;
+        this.effectivenesses = family.effectivenesses;
+        return this;
+    }
 }
