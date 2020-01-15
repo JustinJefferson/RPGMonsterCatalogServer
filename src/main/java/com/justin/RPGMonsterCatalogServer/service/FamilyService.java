@@ -29,8 +29,8 @@ public class FamilyService {
     }
 
     public Family update(Long id, Family family) {
-        Family updated = readById(id).update(family);
-        return repository.save(updated);
+        Family fam = readById(id);
+        return fam != null ? repository.save(fam.update(family)) : null;
     }
 
     public Boolean delete(Long id) {
