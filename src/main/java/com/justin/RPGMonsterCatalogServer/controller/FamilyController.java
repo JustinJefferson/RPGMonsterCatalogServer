@@ -39,21 +39,13 @@ public class FamilyController {
     @GetMapping
     public ResponseEntity<List<Family>> getAll() {
         List<Family> ls = service.readAll();
-        if(ls != null) {
-            return new ResponseEntity<>(ls, HttpStatus.OK);
-        } else {
-            return ResponseEntity.badRequest().build();
-        }
+        return ls != null ? new ResponseEntity<>(ls, HttpStatus.OK) : ResponseEntity.badRequest().build();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Family> get(@PathVariable Long id) {
         Family family = service.readById(id);
-        if(family != null) {
-            return new ResponseEntity<>(family, HttpStatus.OK);
-        } else {
-            return ResponseEntity.badRequest().build();
-        }
+        return family != null ? new ResponseEntity<>(family, HttpStatus.OK) : ResponseEntity.badRequest().build();
     }
 
 

@@ -35,4 +35,9 @@ public class Element {
     public void setName(String name) {
         this.elementName = name;
     }
+
+    public Element update(Element element) {
+        this.elementName = element.elementName;
+        return this;
+    }
 }
