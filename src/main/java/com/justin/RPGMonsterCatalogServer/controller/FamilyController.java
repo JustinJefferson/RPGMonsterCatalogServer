@@ -24,6 +24,18 @@ public class FamilyController {
         return result != null ? new ResponseEntity<>(result, HttpStatus.CREATED) : ResponseEntity.badRequest().build();
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Family> put(@PathVariable Long id, @RequestBody Family family) {
+        Family result = service.update(id, family);
+        return result != null ? new ResponseEntity<>(result, HttpStatus.OK) : ResponseEntity.badRequest().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Boolean> delete(@PathVariable Long id) {
+        Boolean result = service.delete(id);
+        return result != null ? new ResponseEntity<>(result, HttpStatus.OK) : ResponseEntity.badRequest().build();
+    }
+
     @GetMapping
     public ResponseEntity<List<Family>> getAll() {
         List<Family> ls = service.readAll();
@@ -43,6 +55,8 @@ public class FamilyController {
             return ResponseEntity.badRequest().build();
         }
     }
+
+
 
 
 }
