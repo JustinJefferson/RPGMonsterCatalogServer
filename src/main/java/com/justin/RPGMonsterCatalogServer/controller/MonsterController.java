@@ -25,15 +25,20 @@ public class MonsterController {
     @GetMapping
     public ResponseEntity<List<Monster>> getAll(){
         List<Monster> list = service.readAll();
-        if(list != null && !list.isEmpty()) return new ResponseEntity<>(list, HttpStatus.FOUND);
+        if(list != null && !list.isEmpty()) return new ResponseEntity<>(list, HttpStatus.OK);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Monster> getById(@PathVariable Long id){
         Monster monster = service.readById(id);
-        if(monster != null) return new ResponseEntity<>(monster, HttpStatus.FOUND);
-        return ResponseEntity.notFound().build();
+        if(monster != null) return new ResponseEntity<>(monster, HttpStatus.OK);
+        return ResponseEntity.badRequest().build();
+    }
+    @GetMapping("/family/{id}")
+    public ResponseEntity<List<Monster>> getByFamilyId(@PathVariable Long id) {
+        List<Monster> ls = service.readAllByFamilyId(id);
+        return ls != null ? new ResponseEntity<>(ls, HttpStatus.OK) : ResponseEntity.badRequest().build();
     }
 
     @PostMapping
@@ -46,7 +51,7 @@ public class MonsterController {
     @PutMapping("/{id}")
     public ResponseEntity<Monster> put(@PathVariable Long id, @RequestBody Monster monster){
         Monster updated = service.update(id, monster);
-        if(updated != null) return new ResponseEntity<>(updated, HttpStatus.ACCEPTED);
+        if(updated != null) return new ResponseEntity<>(updated, HttpStatus.OK);
         return ResponseEntity.badRequest().build();
     }
 
