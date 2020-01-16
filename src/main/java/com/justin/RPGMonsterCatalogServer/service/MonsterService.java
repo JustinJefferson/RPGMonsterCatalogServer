@@ -32,7 +32,7 @@ public class MonsterService {
 
 
     public Monster readById(Long id) {
-        return repository.findById(id).get();
+        return repository.findById(id).orElse(null);
     }
 
     public Monster create(Monster monster) {
@@ -41,7 +41,7 @@ public class MonsterService {
 
     public Monster update(Long id, Monster monster) {
         Monster original = readById(id);
-        return repository.save(new MonsterBuilder(original).replicate(monster).build());
+        return original != null ? repository.save(new MonsterBuilder(original).replicate(monster).build()) : null;
     }
 
     public Boolean delete(Long id) {
