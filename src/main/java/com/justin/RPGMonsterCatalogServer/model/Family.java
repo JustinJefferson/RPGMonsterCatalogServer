@@ -8,6 +8,7 @@ public class Family {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "family_id")
     private Long familyId;
 
     private String familyName;

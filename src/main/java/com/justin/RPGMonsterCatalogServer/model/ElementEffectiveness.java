@@ -2,11 +2,9 @@ package com.justin.RPGMonsterCatalogServer.model;
 
 import com.justin.RPGMonsterCatalogServer.key.ElementEffectivenessKey;
 
-import javax.persistence.EmbeddedId;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
+import javax.persistence.*;
 
+@Entity
 public class ElementEffectiveness {
 
     @EmbeddedId
