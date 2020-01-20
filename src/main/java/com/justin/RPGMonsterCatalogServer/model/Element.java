@@ -1,15 +1,13 @@
 package com.justin.RPGMonsterCatalogServer.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Element {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "element_id")
     private Long elementId;
     private String elementName;
 
