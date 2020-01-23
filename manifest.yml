@@ -3,7 +3,7 @@ applications:
   - name: rpg-monster-catalog-server
     memory: 1G
     instances: 1
-    path: target/RPGMonsterCatalogServer-0.0.1-SNAPSHOT.jar
+    path: target\RPGMonsterCatalogServer-0.0.1-SNAPSHOT.jar
     buildpack: java_buildpack
     services:
       - monster-db
