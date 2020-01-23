@@ -12,6 +12,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("api/monster")
+@CrossOrigin(origins = "http://localhost:4200")
 public class MonsterController {
 
     private MonsterService service;
@@ -56,7 +57,7 @@ public class MonsterController {
     }
 
     @DeleteMapping("/id")
-    public ResponseEntity delete(@PathVariable Long id){
+    public ResponseEntity<Boolean> delete(@PathVariable Long id){
         if(service.delete(id)) return ResponseEntity.ok().build();
         return ResponseEntity.badRequest().build();
     }
