@@ -1,0 +1,8 @@
+---
+applications:
+  - name: rpg-monster-catalog-server
+    memory: 1G
+    instances: 1
+    buildpack: java_buildpack
+    services:
+      - monster-db
